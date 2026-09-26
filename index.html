@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crystal's Mystery Scoops</title>
+<style>
+:root{--pink:#ff2f92;--gold:#f4c76b}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#351026,#050505 55%);color:#fff;font-family:Montserrat,Arial,sans-serif}header{position:sticky;top:0;z-index:10;background:#050505ee;border-bottom:1px solid #d6a84e;display:flex;justify-content:space-between;align-items:center;padding:8px 5%}.logo{font-family:Georgia,serif;font-size:1.5rem;font-weight:700;color:var(--gold)}.logo span{color:var(--pink)}button,a{cursor:pointer}header button,.checkout,a{border:0;border-radius:999px;padding:12px 20px;font-weight:800}header button{background:var(--pink);color:#fff}header b{background:#fff;color:#a20b5b;padding:3px 7px;border-radius:50%}.hero{max-width:1200px;margin:auto;min-height:72vh;padding:45px 7%;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}.hero-badge{width:100%;max-width:540px;margin:auto;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff2f92,#050505);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:10rem;color:var(--gold);border:3px solid var(--gold)}.hero small{color:var(--gold);font-weight:800;letter-spacing:2px}.hero h1,h2{font-family:Georgia,serif}.hero h1{font-size:clamp(2.5rem,6vw,5rem);margin:15px 0}.hero p{color:#e2d4df;line-height:1.7}.hero a{display:inline-block;background:var(--pink);color:#fff;text-decoration:none;margin-top:12px}section{max-width:1200px;margin:auto;padding:65px 6%}h2{text-align:center;font-size:2.7rem;margin-bottom:35px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{background:#0d080d;border:1px solid #d6a84e;border-radius:22px;padding:25px;box-shadow:0 12px 30px #0008}.card h3{margin:0 0 8px}.price{font-size:1.5rem;color:var(--gold);font-weight:800}.desc{color:#cbbbc6;min-height:48px;line-height:1.5}.card button{width:100%;background:#fff;color:#9c105c;border:0;border-radius:10px;padding:11px;font-weight:800}.carttop{display:flex;justify-content:space-between;align-items:center}.carttop button{background:none;color:#fff;border:0;font-size:1.4rem}.carttop h2{text-align:left;font-size:2rem;margin:0}.cart-line{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #342432}.cart-line button{background:none;color:#ff8ac5;border:0}.shipping{display:block;padding:18px 0}.total{display:flex;justify-content:space-between;border-top:1px solid #493443;padding:16px 0;font-size:1.2rem}.checkout{width:100%;background:var(--gold);color:#111}.note{text-align:center;color:#998a95;font-size:.75rem}#cart{position:fixed;z-index:30;right:-430px;top:0;width:min(430px,94vw);height:100%;background:#100a10;border-left:1px solid var(--gold);padding:20px;transition:.25s;display:flex;flex-direction:column}#cart.open{right:0}#items{flex:1;overflow:auto}#overlay{display:none;position:fixed;inset:0;z-index:20;background:#0009}#overlay.show{display:block}footer{text-align:center;padding:45px 20px;color:#a999a6;border-top:1px solid #30202b}@media(max-width:800px){.hero{grid-template-columns:1fr;text-align:center}.grid{grid-template-columns:1fr}section{padding:45px 5%}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">Crystal's <span>Mystery Scoops</span></div>
+<button onclick="toggleCart()">Cart <b id="count">0</b></button>
+</header>
+<div class="hero">
+<div>
+<small>MYSTERY SCOOPS</small>
+<h1>Crystal's Mystery Scoops</h1>
+<p>Discover the magic of mystery scoops! Each scoop is packed with surprise items. Order yours today and unbox the mystery!</p>
+<a href="#shop" class="checkout">Shop Now</a>
+</div>
+<div class="hero-badge">?</div>
+</div>
+<section id="shop">
+<h2>Our Scoops</h2>
+<div class="grid" id="products"></div>
+</section>
+<section>
+<h2>Add-Ons</h2>
+<div class="grid" id="addons"></div>
+</section>
+<div id="overlay" onclick="toggleCart()"></div>
+<div id="cart">
+<div class="carttop">
+<h2>Your Cart</h2>
+<button onclick="toggleCart()">✕</button>
+</div>
+<div id="items"></div>
+<label class="shipping"><input type="checkbox" id="ship"> Add shipping ($20)</label>
+<div class="total"><span>Total</span><span id="total">$0.00</span></div>
+<button class="checkout" onclick="checkout()">Checkout</button>
+<p class="note">Shipping calculated at checkout</p>
+</div>
+<footer>
+<p>&copy; <span id="year"></span> Crystal's Mystery Scoops. All rights reserved.</p>
+</footer>
+<script>
+const products=[{id:"mini",name:"Mini Mystery Scoop",price:15,desc:"A fun mini mystery surprise."},{id:"regular",name:"Regular Mystery Scoop",price:25,desc:"Includes 5-10 mystery items."},{id:"large",name:"Large Mystery Scoop",price:45,desc:"Includes 11-20 mystery items."},{id:"double",name:"Regular Double Scoop",price:45,desc:"Double the mystery fun."},{id:"triple",name:"Regular Triple Scoop",price:65,desc:"Triple the mystery fun."}];
+const addons=[{id:"video",name:"Packing Video",price:12,desc:"Add a packing video to your order."},{id:"rare",name:"Extra Rare Ball",price:10,desc:"Add an extra rare ball to your scoop."}];
+let cart=JSON.parse(localStorage.getItem("cms-cart")||"[]");
+const money=n=>"$"+n.toFixed(2);
+function add(p){cart.push(p);save();render();openCart()}
+function remove(i){cart.splice(i,1);save();render()}
+function save(){localStorage.setItem("cms-cart",JSON.stringify(cart))}
+function cards(list,id){document.getElementById(id).innerHTML=list.map(p=>'<article class="card"><h3>'+p.name+'</h3><div class="price">'+(id==="addons"?"+":"")+money(p.price)+'</div><p class="desc">'+p.desc+'</p><button onclick=\'add('+JSON.stringify(p)+')\'>Add to Cart</button></article>').join("")}
+function render(){document.getElementById("count").textContent=cart.length;document.getElementById("items").innerHTML=cart.length?cart.map((p,i)=>'<div class="cart-line"><span><b>'+p.name+'</b><br>'+money(p.price)+'</span><button onclick="remove('+i+')">Remove</button></div>').join(""):"<p>Your cart is empty.</p>";let t=cart.reduce((s,p)=>s+p.price,0)+(document.getElementById("ship").checked?20:0);document.getElementById("total").textContent=money(t)}
+function toggleCart(){document.getElementById("cart").classList.toggle("open");document.getElementById("overlay").classList.toggle("show")}
+function openCart(){document.getElementById("cart").classList.add("open");document.getElementById("overlay").classList.add("show")}
+async function checkout(){if(!cart.length)return alert("Please add a mystery scoop first.");const r=await fetch("https://crystal--scomysteryops-checkout.cdsjimenez.workers.dev/checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({items:cart.map(p=>({id:p.id==="video"?"packing_video":p.id,quantity:1}))})});const d=await r.json();if(d.checkout_url)location.href=d.checkout_url;else alert(d.error||"Checkout failed.")}
+cards(products,"products");cards(addons,"addons");document.getElementById("year").textContent=new Date().getFullYear();render();
+</script>
+</body>
+</html>
