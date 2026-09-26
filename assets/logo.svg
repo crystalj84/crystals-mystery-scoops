@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+<circle cx="100" cy="100" r="95" fill="#ff2f92" stroke="#f4c76b" stroke-width="3"/>
+<text x="100" y="90" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="#f4c76b">Crystal's</text>
+<text x="100" y="120" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#fff">MYSTERY SCOOPS</text>
+</svg>
