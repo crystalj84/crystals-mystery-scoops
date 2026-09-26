@@ -9,7 +9,7 @@ const PRODUCTS = {
 };
 const SHIPPING = { name: "Shipping", price: 2000 };
 const LOCATION_ID = "1ZFPQECPE0P38";
-const SQUARE_API = "https://connect.squareup.com/v2/locations/" + LOCATION_ID + "/checkouts";
+const SQUARE_API = "https://connect.squareup.com/v2/online-checkout/payment-links";
 
 export default {
   async fetch(request, env) {
@@ -36,11 +36,11 @@ export default {
         const res = await fetch(SQUARE_API, {
           method: "POST",
           headers: { "Square-Version": "2026-08-19", "Authorization": "Bearer " + env.SQUARE_ACCESS_TOKEN, "Content-Type": "application/json" },
-          body: JSON.stringify({ idempotency_key: crypto.randomUUID(), order, ask_for_shipping_address: true })
+          body: JSON.stringify({ idempotency_key: crypto.randomUUID(), order: order, checkout_options: { ask_for_shipping_address: true } })
         });
         const result = await res.json();
         if (!res.ok) return new Response(JSON.stringify({ error: "Square error", details: result.errors || [] }), { status: res.status, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-        const checkoutUrl = result?.checkout?.checkout_page_url;
+        const checkoutUrl = result?.payment_link?.long_url || result?.payment_link?.url;
         if (!checkoutUrl) return new Response(JSON.stringify({ error: "No checkout URL" }), { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } });
         return new Response(JSON.stringify({ success: true, checkout_url: checkoutUrl }), { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } });
       } catch (e) {
