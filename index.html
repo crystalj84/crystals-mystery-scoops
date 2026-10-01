@@ -16,7 +16,7 @@
 <div class="hero">
 <div>
 <small>MYSTERY SCOOPS</small>
-<h1>Crystal's Mystery Scoops</h1>
+<img src="logo.png" alt="Crystal's Mystery Scoops" class="hero-logo">
 <p>Discover the magic of mystery scoops! Each scoop is packed with surprise items. Order yours today and unbox the mystery!</p>
 <a href="#shop" class="checkout">Shop Now</a>
 </div>
@@ -48,6 +48,10 @@
 <script>
 const products=[{id:"mini",name:"Mini Mystery Scoop",price:15,desc:"A fun mini mystery surprise."},{id:"regular",name:"Regular Mystery Scoop",price:25,desc:"Includes 5-10 mystery items."},{id:"large",name:"Large Mystery Scoop",price:45,desc:"Includes 11-20 mystery items."},{id:"double",name:"Regular Double Scoop",price:45,desc:"Double the mystery fun."},{id:"triple",name:"Regular Triple Scoop",price:65,desc:"Triple the mystery fun."}];
 const addons=[{id:"video",name:"Packing Video",price:12,desc:"Add a packing video to your order."},{id:"rare",name:"Extra Rare Ball",price:10,desc:"Add an extra rare ball to your scoop."}];
+<section class="price-list">
+<h2>Our Prices</h2>
+<img src="price-list.jpg" alt="Crystal's Mystery Scoops Price List">
+</section>
 let cart=JSON.parse(localStorage.getItem("cms-cart")||"[]");
 const money=n=>"$"+n.toFixed(2);
 function add(p){cart.push(p);save();render();openCart()}
