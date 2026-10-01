@@ -16,7 +16,7 @@
 <div class="hero">
 <div>
 <small>MYSTERY SCOOPS</small>
-<img src="logo.png" alt="Crystal's Mystery Scoops" class="hero-logo">
+<h1>Crystal's Mystery Scoops</h1>
 <p>Discover the magic of mystery scoops! Each scoop is packed with surprise items. Order yours today and unbox the mystery!</p>
 <a href="#shop" class="checkout">Shop Now</a>
 </div>
@@ -50,9 +50,6 @@ const products=[{id:"mini",name:"Mini Mystery Scoop",price:15,desc:"A fun mini m
 const addons=[{id:"video",name:"Packing Video",price:12,desc:"Add a packing video to your order."},{id:"rare",name:"Extra Rare Ball",price:10,desc:"Add an extra rare ball to your scoop."}];
 <section class="price-list">
 <h2>Our Prices</h2>
-<img src="price-list.jpg" alt="Crystal's Mystery Scoops Price List">
-</section>
-<img scr="scoop product list.png" alt="Crytsal's Mystery Scoops Product List">
 let cart=JSON.parse(localStorage.getItem("cms-cart")||"[]");
 const money=n=>"$"+n.toFixed(2);
 function add(p){cart.push(p);save();render();openCart()}
