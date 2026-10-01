@@ -52,6 +52,7 @@ const addons=[{id:"video",name:"Packing Video",price:12,desc:"Add a packing vide
 <h2>Our Prices</h2>
 <img src="price-list.jpg" alt="Crystal's Mystery Scoops Price List">
 </section>
+<img scr="scoop product list.jpg" alt="Crytsal's Mystery Scoops Product List">
 let cart=JSON.parse(localStorage.getItem("cms-cart")||"[]");
 const money=n=>"$"+n.toFixed(2);
 function add(p){cart.push(p);save();render();openCart()}
