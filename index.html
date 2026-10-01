@@ -100,7 +100,7 @@ header button:hover{
   padding:70px 25px;
 
   display:grid;
-  grid-template-columns:1fr 220px;
+  grid-template-columns:1fr;
   gap:40px;
 
   align-items:center;
@@ -151,31 +151,6 @@ header button:hover{
 
 .hero a:hover{
   transform:translateY(-2px);
-}
-
-.hero-badge{
-  width:190px;
-  height:190px;
-
-  border-radius:50%;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:110px;
-  font-weight:bold;
-
-  color:var(--pink);
-
-  border:8px solid var(--gold);
-
-  background:
-    radial-gradient(circle,#42132d,#160812);
-
-  box-shadow:
-    0 0 30px #ff2f9255,
-    inset 0 0 30px #0008;
 }
 
 /* SECTIONS */
@@ -532,15 +507,6 @@ footer{
     margin-right:auto;
   }
 
-  .hero-badge{
-    width:130px;
-    height:130px;
-
-    font-size:75px;
-
-    margin:auto;
-  }
-
   section{
     padding-left:18px;
     padding-right:18px;
@@ -598,10 +564,6 @@ footer{
       Shop Now
     </a>
 
-  </div>
-
-  <div class="hero-badge">
-    ?
   </div>
 
 </div>
@@ -757,7 +719,7 @@ const products = [
   },
 
   {
-    id:"regular",
+    id:"crystalsmysteryscoops",
     name:"Regular Mystery Scoop",
     price:25,
     desc:"Includes 5-10 mystery items."
@@ -814,379 +776,203 @@ const addons = [
    CART
 ========================================= */
 
-let cart = JSON.parse(
-  localStorage.getItem("crystalCart") || "[]"
-);
+let cart = [];
 
-
-/* =========================================
-   DISPLAY PRODUCTS
-========================================= */
-
-function displayProducts(){
-
-  const productsContainer =
-    document.getElementById("products");
-
-  const addonsContainer =
-    document.getElementById("addons");
-
-
-  productsContainer.innerHTML =
-    products.map(product => `
-
-      <div class="card">
-
-        <h3>
-          ${product.name}
-        </h3>
-
-        <p>
-          ${product.desc}
-        </p>
-
-        <div class="price">
-          $${product.price.toFixed(2)}
-        </div>
-
-        <button
-          onclick="addToCart('${product.id}')"
-        >
-          Add to Cart
-        </button>
-
-      </div>
-
-    `).join("");
-
-
-  addonsContainer.innerHTML =
-    addons.map(product => `
-
-      <div class="card">
-
-        <h3>
-          ${product.name}
-        </h3>
-
-        <p>
-          ${product.desc}
-        </p>
-
-        <div class="price">
-          $${product.price.toFixed(2)}
-        </div>
-
-        <button
-          onclick="addToCart('${product.id}')"
-        >
-          Add to Cart
-        </button>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-/* =========================================
-   FIND PRODUCT
-========================================= */
-
-function findProduct(id){
-
-  return [...products,...addons]
-    .find(product => product.id === id);
-
-}
-
-
-/* =========================================
-   ADD TO CART
-========================================= */
-
+/* -- ADD TO CART -- */
 function addToCart(id){
 
-  const product = findProduct(id);
+  const item =
+    [...products, ...addons].find(p => p.id === id);
 
-  if(!product){
-    return;
+  if(!item) return;
+
+  const existing = cart.find(c => c.id === id);
+
+  if(existing){
+    existing.qty++;
+  } else {
+    cart.push({ ...item, qty:1 });
   }
 
-  cart.push(product);
+  renderCart();
+  flashCart();
+}
 
-  saveCart();
+/* -- REMOVE FROM CART -- */
+function removeFromCart(id){
 
-  updateCart();
+  cart = cart.filter(c => c.id !== id);
 
-  openCart();
+  renderCart();
+}
+
+/* -- CHANGE QTY -- */
+function changeQty(id, delta){
+
+  const item = cart.find(c => c.id === id);
+
+  if(!item) return;
+
+  item.qty += delta;
+
+  if(item.qty <= 0){
+    removeFromCart(id);
+  } else {
+    renderCart();
+  }
 
 }
 
+/* -- RENDER CART -- */
+function renderCart(){
 
-/* =========================================
-   REMOVE ITEM
-========================================= */
+  const container = document.getElementById("cartItems");
+  const count = document.getElementById("count");
+  const total = document.getElementById("total");
 
-function removeFromCart(index){
-
-  cart.splice(index,1);
-
-  saveCart();
-
-  updateCart();
-
-}
-
-
-/* =========================================
-   SAVE CART
-========================================= */
-
-function saveCart(){
-
-  localStorage.setItem(
-    "crystalCart",
-    JSON.stringify(cart)
-  );
-
-}
-
-
-/* =========================================
-   UPDATE CART
-========================================= */
-
-function updateCart(){
-
-  const cartItems =
-    document.getElementById("cartItems");
-
-  const count =
-    document.getElementById("count");
-
-  const total =
-    document.getElementById("total");
-
-  const shipping =
-    document.getElementById("shipping");
-
-
-  count.textContent = cart.length;
-
+  let qtyTotal = 0;
+  let priceTotal = 0;
 
   if(cart.length === 0){
-
-    cartItems.innerHTML = `
-      <div class="empty">
-        Your cart is empty.
-      </div>
-    `;
-
-  }else{
-
-    cartItems.innerHTML =
-      cart.map((product,index) => `
-
-        <div class="cart-item">
-
-          <div>
-
-            <strong>
-              ${product.name}
-            </strong>
-
-            <small>
-              $${product.price.toFixed(2)}
-            </small>
-
-          </div>
-
-          <button
-            class="cart-remove"
-            onclick="removeFromCart(${index})"
-          >
-            Remove
-          </button>
-
+    container.innerHTML =
+      '<div class="empty">Your cart is empty.</div>';
+  } else {
+    container.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <div>
+          <strong>${item.name}</strong>
+          <small>$${item.price} × ${item.qty}</small>
         </div>
-
-      `).join("");
-
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="cart-remove" onclick="changeQty('${item.id}',-1)">−</button>
+          <span>${item.qty}</span>
+          <button class="cart-remove" onclick="changeQty('${item.id}',1)">+</button>
+          <button class="cart-remove" onclick="removeFromCart('${item.id}')">Remove</button>
+        </div>
+      </div>
+    `).join("");
   }
 
+  cart.forEach(item => {
+    qtyTotal += item.qty;
+    priceTotal += item.price * item.qty;
+  });
 
-  let subtotal = cart.reduce(
-    (sum,product) => sum + product.price,
-    0
-  );
+  const shipping = document.getElementById("shipping");
+  if(shipping && shipping.checked){
+    priceTotal += 20;
+  }
 
-
-  let shippingCost =
-    shipping.checked && cart.length > 0
-      ? 20
-      : 0;
-
-
-  let finalTotal =
-    subtotal + shippingCost;
-
-
-  total.textContent =
-    "$" + finalTotal.toFixed(2);
+  count.textContent = qtyTotal;
+  total.textContent = "$" + priceTotal.toFixed(2);
 
 }
 
-
-/* =========================================
-   OPEN / CLOSE CART
-========================================= */
-
-function openCart(){
-
-  document
-    .getElementById("cart")
-    .classList.add("open");
-
-  document
-    .getElementById("overlay")
-    .classList.add("show");
-
-}
-
-
+/* -- TOGGLE CART -- */
 function toggleCart(){
 
-  const cartElement =
-    document.getElementById("cart");
+  const cart = document.getElementById("cart");
+  const overlay = document.getElementById("overlay");
 
-  const overlay =
-    document.getElementById("overlay");
-
-
-  cartElement.classList.toggle("open");
-
+  cart.classList.toggle("open");
   overlay.classList.toggle("show");
 
 }
 
+/* -- FLASH CART -- */
+function flashCart(){
 
-/* =========================================
-   CHECKOUT
-========================================= */
+  const cart = document.getElementById("cart");
+  const overlay = document.getElementById("overlay");
 
+  cart.classList.add("open");
+  overlay.classList.add("show");
+
+  setTimeout(() => {
+    cart.classList.remove("open");
+    overlay.classList.remove("show");
+  }, 1500);
+
+}
+
+/* -- CHECKOUT -- */
 async function checkout(){
 
   if(cart.length === 0){
-
-    alert(
-      "Your cart is empty. Please add a scoop first."
-    );
-
+    alert("Your cart is empty!");
     return;
   }
 
+  const shipping = document.getElementById("shipping");
+  const includeShipping = shipping && shipping.checked;
 
-  const shipping =
-    document.getElementById("shipping").checked;
+  const payload = {
+    items: cart.map(item => ({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      qty: item.qty
+    })),
+    shipping: includeShipping
+  };
 
+  try {
 
-  const checkoutButton =
-    document.getElementById("checkoutBtn");
+    const resp = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
 
-
-  checkoutButton.disabled = true;
-
-  checkoutButton.textContent =
-    "Loading...";
-
-
-  try{
-
-    const response =
-      await fetch("/checkout",{
-
-        method:"POST",
-
-        headers:{
-          "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-
-          items:cart.map(product => ({
-
-            id:
-              product.id === "video"
-                ? "packing_video"
-                : product.id,
-
-            quantity:1
-
-          })),
-
-          shipping:shipping
-
-        })
-
-      });
-
-
-    const data =
-      await response.json();
-
-
-    if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "Checkout could not be started."
-      );
-
-    }
-
+    const data = await resp.json();
 
     if(data.url){
-
-      window.location.href =
-        data.url;
-
-    }else{
-
-      throw new Error(
-        "No checkout URL was returned."
-      );
-
+      window.location.href = data.url;
+    } else {
+      alert("Checkout error: " + (data.error || "Unknown error"));
     }
 
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      error.message ||
-      "Something went wrong during checkout."
-    );
-
-    checkoutButton.disabled = false;
-
-    checkoutButton.textContent =
-      "Checkout";
-
+  } catch(err){
+    alert("Checkout failed: " + err.message);
   }
 
 }
 
+/* -- RENDER PRODUCTS -- */
+function renderProducts(){
 
-/* =========================================
-   START PAGE
-========================================= */
+  const container = document.getElementById("products");
 
-displayProducts();
+  container.innerHTML = products.map(p => `
+    <div class="card">
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+      <div class="price">$${p.price}</div>
+      <button onclick="addToCart('${p.id}')">Add to Cart</button>
+    </div>
+  `).join("");
 
-updateCart();
+}
+
+/* -- RENDER ADD-ONS -- */
+function renderAddons(){
+
+  const container = document.getElementById("addons");
+
+  container.innerHTML = addons.map(a => `
+    <div class="card">
+      <h3>${a.name}</h3>
+      <p>${a.desc}</p>
+      <div class="price">$${a.price}</div>
+      <button onclick="addToCart('${a.id}')">Add to Cart</button>
+    </div>
+  `).join("");
+
+}
+
+/* -- INIT -- */
+renderProducts();
+renderAddons();
 
 </script>
 
