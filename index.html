@@ -37,13 +37,10 @@ header{
   position:sticky;
   top:0;
   z-index:1000;
-
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   padding:15px 25px;
-
   background:rgba(20,5,15,.96);
   border-bottom:2px solid var(--gold);
   box-shadow:0 5px 20px #0008;
@@ -79,15 +76,11 @@ header button:hover{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-
   min-width:22px;
   height:22px;
-
   margin-left:5px;
-
   background:var(--gold);
   color:#24101d;
-
   border-radius:50%;
   font-size:13px;
 }
@@ -96,13 +89,10 @@ header button:hover{
 .hero{
   max-width:1200px;
   margin:auto;
-
   padding:70px 25px;
-
   display:grid;
   grid-template-columns:1fr;
   gap:40px;
-
   align-items:center;
 }
 
@@ -114,37 +104,27 @@ header button:hover{
 
 .hero-logo{
   display:block;
-
   width:min(100%,550px);
   max-height:230px;
-
   object-fit:contain;
-
   margin:15px 0 20px;
 }
 
 .hero p{
   max-width:650px;
-
   font-size:18px;
   line-height:1.7;
-
   color:#f5dce8;
 }
 
 .hero a{
   display:inline-block;
-
   margin-top:15px;
   padding:14px 25px;
-
   background:var(--pink);
   color:white;
-
   text-decoration:none;
-
   border-radius:30px;
-
   font-weight:bold;
   box-shadow:0 8px 20px #0007;
 }
@@ -162,45 +142,26 @@ section{
 
 section h2{
   text-align:center;
-
   color:var(--gold);
-
   font-size:32px;
-
   margin:0 0 30px;
 }
 
 /* PRODUCT GRID */
 .grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(auto-fit,minmax(220px,1fr));
-
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:22px;
 }
 
 .card{
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,47,146,.15),
-      rgba(255,255,255,.04)
-    );
-
+  background:linear-gradient(145deg,rgba(255,47,146,.15),rgba(255,255,255,.04));
   border:1px solid #f4c76b55;
-
   border-radius:20px;
-
   padding:25px;
-
   text-align:center;
-
   box-shadow:0 12px 30px #0007;
-
-  transition:
-    transform .2s ease,
-    border-color .2s ease;
+  transition:transform .2s ease,border-color .2s ease;
 }
 
 .card:hover{
@@ -210,43 +171,32 @@ section h2{
 
 .card h3{
   margin-top:0;
-
   color:white;
-
   font-size:21px;
 }
 
 .card p{
   color:#e9cfdc;
-
   min-height:45px;
-
   line-height:1.5;
 }
 
 .price{
   color:var(--gold);
-
   font-size:25px;
   font-weight:bold;
-
   margin:15px 0;
 }
 
 .card button{
   width:100%;
-
   padding:12px;
-
   border:none;
   border-radius:25px;
-
   background:var(--pink);
   color:white;
-
   font-weight:bold;
   font-size:15px;
-
   cursor:pointer;
 }
 
@@ -261,18 +211,12 @@ section h2{
 
 .image-section img{
   display:block;
-
   width:100%;
   max-width:900px;
-
   height:auto;
-
   margin:0 auto;
-
   border:2px solid var(--gold);
-
   border-radius:20px;
-
   box-shadow:0 12px 30px #0008;
 }
 
@@ -280,11 +224,8 @@ section h2{
 #overlay{
   position:fixed;
   inset:0;
-
   background:#0009;
-
   z-index:1999;
-
   display:none;
 }
 
@@ -295,29 +236,15 @@ section h2{
 /* CART */
 #cart{
   position:fixed;
-
   top:0;
   right:-430px;
-
   width:min(430px,100%);
-
   height:100vh;
-
   z-index:2000;
-
-  background:
-    linear-gradient(
-      180deg,
-      #2b1020,
-      #10060d
-    );
-
+  background:linear-gradient(180deg,#2b1020,#10060d);
   border-left:2px solid var(--gold);
-
   box-shadow:-10px 0 35px #0009;
-
   transition:right .3s ease;
-
   display:flex;
   flex-direction:column;
 }
@@ -328,51 +255,37 @@ section h2{
 
 .cart-header{
   display:flex;
-
   justify-content:space-between;
   align-items:center;
-
   padding:20px;
-
   border-bottom:1px solid #f4c76b55;
 }
 
 .cart-header h2{
   margin:0;
-
   color:var(--gold);
 }
 
 .close-cart{
   border:none;
-
   background:none;
-
   color:white;
-
   font-size:30px;
-
   cursor:pointer;
 }
 
 #cartItems{
   flex:1;
-
   overflow-y:auto;
-
   padding:20px;
 }
 
 .cart-item{
   display:flex;
-
   justify-content:space-between;
   align-items:center;
-
   gap:15px;
-
   padding:15px 0;
-
   border-bottom:1px solid #ffffff22;
 }
 
@@ -386,21 +299,15 @@ section h2{
 
 .cart-remove{
   border:none;
-
   background:#ffffff12;
-
   color:#ff8bbb;
-
   border-radius:20px;
-
   padding:7px 10px;
-
   cursor:pointer;
 }
 
 .cart-bottom{
   padding:20px;
-
   border-top:1px solid #f4c76b55;
 }
 
@@ -418,9 +325,199 @@ section h2{
 
 .total{
   display:flex;
-
   justify-content:space-between;
+  font-size:22px;
+  font-weight:bold;
+  margin-bottom:20px;
+}
 
-  font-size:22 
-  
+.checkout-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:25px;
+  background:var(--pink);
+  color:white;
+  font-weight:bold;
+  font-size:17px;
+  cursor:pointer;
+  box-shadow:0 6px 18px #0007;
+}
 
+.checkout-btn:hover{
+  background:#ff58a8;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:30px 25px;
+  color:#dcbaca;
+  font-size:14px;
+  border-top:1px solid #f4c76b22;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .hero{padding:40px 20px;}
+  section h2{font-size:26px;}
+  .logo{font-size:18px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">Crystal's <span>Mystery</span> Scoops</div>
+  <button onclick="toggleCart()">Cart <span id="count">0</span></button>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <small>MYSTERY SCOOPS</small>
+    <img class="hero-logo" src="product-photo.png" alt="Crystal's Mystery Scoops logo" />
+    <p>Welcome to Crystal's Mystery Scoops! Each scoop is a surprise — you never know what treasures you'll find inside. Grab yours today and join the fun!</p>
+    <a href="#products">Shop Now</a>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <h2>Our Mystery Scoops</h2>
+  <div class="grid">
+
+    <div class="card">
+      <h3>Mini Mystery Scoop</h3>
+      <p>A small scoop packed with surprise goodies.</p>
+      <div class="price">$5.00</div>
+      <button onclick="addToCart('Mini Mystery Scoop',5.00)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <h3>Classic Mystery Scoop</h3>
+      <p>Our most popular scoop with even more surprises.</p>
+      <div class="price">$10.00</div>
+      <button onclick="addToCart('Classic Mystery Scoop',10.00)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <h3>Mega Mystery Scoop</h3>
+      <p>The ultimate scoop — loaded with mystery treasures!</p>
+      <div class="price">$15.00</div>
+      <button onclick="addToCart('Mega Mystery Scoop',15.00)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <h3>Deluxe Mystery Scoop</h3>
+      <p>Our premium scoop with the biggest surprises of all.</p>
+      <div class="price">$20.00</div>
+      <button onclick="addToCart('Deluxe Mystery Scoop',20.00)">Add to Cart</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRODUCT LIST IMAGE -->
+<section class="image-section">
+  <img src="Product-list.png" alt="Product list" />
+</section>
+
+<!-- CART OVERLAY -->
+<div id="overlay" onclick="toggleCart()"></div>
+
+<!-- CART SIDEBAR -->
+<div id="cart">
+  <div class="cart-header">
+    <h2>Your Cart</h2>
+    <button class="close-cart" onclick="toggleCart()">&times;</button>
+  </div>
+  <div id="cartItems"></div>
+  <div class="cart-bottom">
+    <div class="shipping-info">
+      <span>🚚 Free shipping on orders over $25</span>
+    </div>
+    <div class="total">
+      <span>Total:</span>
+      <span id="totalAmount">$0.00</span>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">Checkout</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  &copy; 2026 Crystal's Mystery Scoops. All rights reserved.
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+let cart=[];
+
+function addToCart(name,price){
+  cart.push({name,price});
+  updateCart();
+  toggleCart(true);
+}
+
+function removeFromCart(index){
+  cart.splice(index,1);
+  updateCart();
+}
+
+function updateCart(){
+  document.getElementById('count').textContent=cart.length;
+
+  let html='';
+  let total=0;
+
+  if(cart.length===0){
+    html='<p style="text-align:center;color:#dcbaca;">Your cart is empty.</p>';
+  }else{
+    cart.forEach((item,i)=>{
+      html+=`
+        <div class="cart-item">
+          <div>
+            <strong>${item.name}</strong>
+            <small>$${item.price.toFixed(2)}</small>
+          </div>
+          <button class="cart-remove" onclick="removeFromCart(${i})">Remove</button>
+        </div>
+      `;
+      total+=item.price;
+    });
+  }
+
+  document.getElementById('cartItems').innerHTML=html;
+  document.getElementById('totalAmount').textContent='$'+total.toFixed(2);
+}
+
+function toggleCart(forceOpen){
+  const cartEl=document.getElementById('cart');
+  const overlay=document.getElementById('overlay');
+
+  if(forceOpen===true){
+    cartEl.classList.add('open');
+    overlay.classList.add('show');
+  }else{
+    cartEl.classList.toggle('open');
+    overlay.classList.toggle('show');
+  }
+}
+
+function checkout(){
+  if(cart.length===0){
+    alert('Your cart is empty!');
+    return;
+  }
+  let total=cart.reduce((sum,item)=>sum+item.price,0);
+  alert('Thank you for your order! Total: $'+total.toFixed(2));
+  cart=[];
+  updateCart();
+  toggleCart();
+}
+</script>
+
+</body>
+</html>
