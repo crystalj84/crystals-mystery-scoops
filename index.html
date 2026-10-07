@@ -4,6 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crystal's Mystery Scoops</title>
+  <meta name="description" content="Mystery scoops packed with surprises — mini, regular, large, double, and triple!">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://crystalsmysteryscoops.com/">
+
+  <!-- Favicon (inline SVG emoji) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>">
+
+  <!-- Open Graph / Social Share -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Crystal's Mystery Scoops">
+  <meta property="og:description" content="Mystery scoops packed with surprises — mini, regular, large, double, and triple!">
+  <meta property="og:url" content="https://crystalsmysteryscoops.com/">
+  <meta property="og:image" content="https://crystalsmysteryscoops.com/images/Product-list.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Crystal's Mystery Scoops">
+  <meta name="twitter:description" content="Mystery scoops packed with surprises — mini, regular, large, double, and triple!">
+  <meta name="twitter:image" content="https://crystalsmysteryscoops.com/images/Product-list.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -14,13 +34,32 @@
     body {
       background: #0a0a0a;
       min-height: 100vh;
-      font-family: Arial, sans-serif;
+      font-family: 'Quicksand', Arial, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
+      flex-direction: column;
     }
 
+    /* ── Logo at Top ─────────────────────────────────────────── */
+    .logo-image {
+      max-width: 700px;
+      width: 100%;
+      margin: 0 auto 10px;
+      border-radius: 25px;
+      overflow: hidden;
+      border: 3px solid #d4af37;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+    }
+
+    .logo-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ── Price List Card ─────────────────────────────────────── */
     .price-list {
       max-width: 700px;
       width: 100%;
@@ -103,6 +142,34 @@
       font-size: 20px;
     }
 
+    /* ── Product List Image at Bottom ────────────────────────── */
+    .product-list-image {
+      max-width: 700px;
+      width: 100%;
+      margin: 30px auto 10px;
+      border-radius: 25px;
+      overflow: hidden;
+      border: 3px solid #d4af37;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+    }
+
+    .product-list-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    .site-footer {
+      max-width: 700px;
+      width: 100%;
+      text-align: center;
+      margin-top: 20px;
+      padding: 20px;
+      color: #d4af37;
+      font-size: 14px;
+    }
+
     @media (max-width: 500px) {
       .price-list {
         padding: 30px 16px;
@@ -128,6 +195,12 @@
 </head>
 <body>
 
+  <!-- ── Logo at Top ────────────────────────────────────────── -->
+  <div class="logo-image">
+    <img src="images/Product-list.png" alt="Crystal's Mystery Scoops Logo">
+  </div>
+
+  <!-- ── Price List ───────────────────────────────────────── -->
   <section class="price-list">
     <h2>✨ Crystal's Mystery Scoops ✨</h2>
     <p class="subtitle">Pick Your Mystery Scoop!</p>
@@ -169,6 +242,19 @@
     </div>
   </section>
 
+  <!-- ── Product List Image at Bottom ──────────────────────── -->
+  <div class="product-list-image">
+    <img src="images/Product-list.png" alt="Crystal's Mystery Scoops Product List">
+  </div>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Crystal's Mystery Scoops. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
 
